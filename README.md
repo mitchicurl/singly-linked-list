@@ -1,1 +1,1 @@
-SO THIS IS ENZMONZ FILE OF C SINGLY LIST THATAS FOCUSED ON CREATION AND TRANASVERSAL
+enzmonz singly list code for creation and traversal
