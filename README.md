@@ -1,1 +1,3 @@
-Tallod Linked List: adding new node before the node, adding newnode after the node
+Tallod Linked List: 
+Inserting NewNode at Start
+Inserting NewNode at End
