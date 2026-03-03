@@ -110,41 +110,42 @@ int main()
 
     do
     {
-        printf("1 Insert Value");
-        printf("\n2 Delete First Node ");
+        printf("\n1 Insert Value/s");
+        printf("\n2 Delete First Value");
         printf("\n3 Delete By Value");
-        printf("\n4 Display");
+        printf("\n4 Display List ");
         printf("\n5 Exit");
         printf("\nEnter choice: ");
         scanf("%d", &choice);
 
-        if(choice == 1)
+        switch(choice)
         {
-            printf("Enter value: ");
-            scanf("%d", &value);
-            insertValue(&head, value);
-        }
-        else if(choice == 2)
-        {
-            deleteAtStart(&head);
-        }
-        else if(choice == 3)
-        {
-            printf("Enter value to delete: ");
-            scanf("%d", &value);
-            deleteByValue(&head, value);
-        }
-        else if(choice == 4)
-        {
-            display(head);
-        }
-        else if(choice == 5)
-        {
-            printf("Program ended\n");
-        }
-        else
-        {
-            printf("Invalid choice\n");
+            case 1:
+                printf("Enter value: ");
+                scanf("%d",&value);
+                insertValue(&head, value);
+                break;
+
+            case 2:
+                deleteAtStart(&head);
+                break;
+
+            case 3:
+                printf("Enter value to delete: ");
+                scanf("%d", &value);
+                deleteByValue(&head, value);
+                break;
+
+            case 4:
+                display(head);
+                break;
+
+            case 5:
+                printf("Program ended.");
+                break;
+
+            default:
+                printf("Invalid choice\n");
         }
 
     } while(choice != 5);
