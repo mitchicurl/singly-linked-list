@@ -88,11 +88,26 @@ printf("\n--- Current List ---\n");
 
 // PERSON 3: Adding of New Node at Start and End
 void insertAtStart(struct Node** head, int data) {
-    // Code dito...
+    struct Node* newNode = createNode(data);
+
+    newNode->next = *head;
+    *head = newNode;
 }
 
 void insertAtEnd(struct Node** head, int data) {
-    // Code dito...
+    struct Node* newNode = createNode(data);
+
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+
+    struct Node* temp = *head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+
+    temp->next = newNode;
 }
 
 // PERSON 4: Adding New Node Before and After a Node (Target by VALUE)
@@ -115,11 +130,61 @@ void deleteByValue(struct Node** head, int target) {
 
 // PERSON 6: Deletion Before and After a Node (Target by VALUE)
 void deleteBefore(struct Node** head, int target) {
-    // Code dito...
+if (*head == NULL || (*head)->next == NULL) {
+        printf("\nError: List too short to delete 'before'.\n");
+        return;
+    }
+
+    if ((*head)->data == target) {
+        printf("\nError: No node exists before the head (%d).\n", target);
+        return;
+    }
+
+    if ((*head)->next->data == target) {
+        struct Node* temp = *head;
+        *head = (*head)->next;
+        free(temp);
+        printf("\nSuccess: Node before %d deleted.\n", target);
+        return;
+    }
+    
+    struct Node* temp = *head;
+    while (temp->next->next != NULL && temp->next->next->data != target) {
+        temp = temp->next;
+    }
+
+    if (temp->next->next == NULL) {
+        printf("\nError: Value %d not found.\n", target);
+    } else {
+        struct Node* toDelete = temp->next;
+        temp->next = toDelete->next;
+        free(toDelete);
+        printf("\nSuccess: Node before %d deleted.\n", target);
+    }
 }
 
 void deleteAfter(struct Node* head, int target) {
-    // Code dito...
+if (head == NULL) {
+        printf("\nError: List is empty.\n");
+        return;
+    }
+    
+    struct Node* temp = head;
+    
+    while (temp != NULL && temp->data != target) {
+        temp = temp->next;
+    }
+    
+    if (temp == NULL) {
+        printf("\nError: Value %d not found.\n", target);
+    } else if (temp->next == NULL) {
+        printf("\nError: No node exists after %d (it is the last node).\n", target);
+    } else {
+        struct Node* toDelete = temp->next;
+        temp->next = toDelete->next;
+        free(toDelete);
+        printf("\nSuccess: Node after %d deleted.\n", target);
+    }
 }
 
 // Sa buong program na 'to
