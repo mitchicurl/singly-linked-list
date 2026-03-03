@@ -160,11 +160,43 @@ void insertAfter(struct Node* head, int target, int data) {
 
 // PERSON 5: Deletion of Node at Start and by Value
 void deleteAtStart(struct Node** head) {
-    // Code dito...
+	if (*head == NULL) {
+        printf("\nError: The list is currently empty. Cannot delete.\n");
+        return;
+    }
+
+    struct Node* temp = *head;
+    *head = temp->next;
+    free(temp);
 }
 
 void deleteByValue(struct Node** head, int target) {
-    // Code dito...
+if (*head == NULL) {
+        printf("\nError: The list is currently empty.\n");
+        return;
+    }
+
+    struct Node* current = *head;
+    struct Node* previous = NULL;
+
+    if (current->data == target) {
+        *head = current->next;
+        free(current);
+        return;
+    }
+
+    while (current != NULL && current->data != target) {
+        previous = current;
+        current = current->next;
+    }
+
+    if (current == NULL) {
+        printf("\nError: Value %d not found in the list.\n", target);
+        return;
+    }
+
+    previous->next = current->next;
+    free(current);
 }
 
 // PERSON 6: Deletion Before and After a Node (Target by VALUE)
@@ -183,7 +215,6 @@ if (*head == NULL || (*head)->next == NULL) {
         struct Node* temp = *head;
         *head = (*head)->next;
         free(temp);
-        printf("\nSuccess: Node before %d deleted.\n", target);
         return;
     }
     
@@ -198,7 +229,6 @@ if (*head == NULL || (*head)->next == NULL) {
         struct Node* toDelete = temp->next;
         temp->next = toDelete->next;
         free(toDelete);
-        printf("\nSuccess: Node before %d deleted.\n", target);
     }
 }
 
@@ -222,11 +252,10 @@ if (head == NULL) {
         struct Node* toDelete = temp->next;
         temp->next = toDelete->next;
         free(toDelete);
-        printf("\nSuccess: Node after %d deleted.\n", target);
     }
 }
 
-// Sa buong program na 'to
+// List / Choices
 int main() {
     struct Node* head = NULL;
     int choice, data, target;
@@ -234,7 +263,7 @@ int main() {
 
     while (1) {
         system("cls");
-        printf("\n===== Singly Linked List =====\n");
+        printf("\n===== Singly Linked List by Group 1 =====\n");
         printf("1. Create a node\n");
         printf("2. Display all nodes\n");
         printf("3. Adding of new node at the start\n");
