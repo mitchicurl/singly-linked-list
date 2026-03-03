@@ -233,6 +233,7 @@ int main() {
     loadFromFile(&head);
 
     while (1) {
+        system("cls");
         printf("\n===== Singly Linked List =====\n");
         printf("1. Create a node\n");
         printf("2. Display all nodes\n");
@@ -252,21 +253,25 @@ int main() {
             case 1:
                 createList(&head);
                 printf("\n[Success] Node/s created!\n");
+                waitForEnter();
                 break;
             case 2:
                 traverse(head);
+                waitForEnter();
                 break;
             case 3:
                 printf("Enter data to insert at start: ");
                 scanf("%d", &data);
                 insertAtStart(&head, data);
                 printf("\n[Success] Node inserted at start!\n");
+                waitForEnter();
                 break;
             case 4:
                 printf("Enter data to insert at end: ");
                 scanf("%d", &data);
                 insertAtEnd(&head, data);
                 printf("\n[Success] Node inserted at end!\n");
+                waitForEnter();
                 break;
             case 5:
                 printf("Enter target node value: ");
@@ -274,6 +279,7 @@ int main() {
                 printf("Enter data to insert before %d: ", target);
                 scanf("%d", &data);
                 insertBefore(&head, target, data);
+                waitForEnter();
                 break;
             case 6:
                 printf("Enter target node value: ");
@@ -281,31 +287,38 @@ int main() {
                 printf("Enter data to insert after %d: ", target);
                 scanf("%d", &data);
                 insertAfter(head, target, data);
+                waitForEnter();
                 break;
             case 7:
                 deleteAtStart(&head);
                 printf("\n[Success] Start node deleted!\n");
+                waitForEnter();
                 break;
             case 8:
                 printf("Enter the value of the node to delete: ");
                 scanf("%d", &target);
                 deleteByValue(&head, target);
+                waitForEnter();
                 break;
             case 9:
                 printf("Enter the target node value to delete BEFORE it: ");
                 scanf("%d", &target);
                 deleteBefore(&head, target);
+                waitForEnter();
                 break;
             case 10:
                 printf("Enter the target node value to delete AFTER it: ");
                 scanf("%d", &target);
                 deleteAfter(head, target);
+                waitForEnter();
                 break;
             case 11:
                 printf("\nExiting program...\n");
+                saveToFile(head);
                 exit(0);
             default:
                 printf("\n[Error] Invalid selection.\n");
+                waitForEnter();
         }
     }
     return 0;
