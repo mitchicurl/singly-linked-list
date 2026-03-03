@@ -1,0 +1,139 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* START = NULL;
+
+void deleteList() {
+    struct Node* temp;
+    while (START != NULL) {
+        temp = START;
+        START = START->next;
+        free(temp);
+    }
+    printf("Memory cleared. List deleted.\n");
+}
+
+void insertEnd(int val) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (newNode == NULL) { // Memory allocation check
+        printf("Memory overflow!\n");
+        return;
+    }
+    newNode->data = val;
+    newNode->next = NULL;
+    
+    if (START == NULL) {
+        START = newNode;
+        return;
+    }
+    struct Node* temp = START;
+    while (temp->next != NULL) temp = temp->next;
+    temp->next = newNode;
+}
+
+void display() {
+    struct Node* temp = START;
+    if (temp == NULL) {
+        printf("List is empty.\n");
+        return;
+    }
+    printf("List: ");
+    while (temp != NULL) {
+        printf("[%d] -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+// Deletion Before a Node
+void deleteBeforeNode(int targetVal) {
+    if (START == NULL || START->next == NULL) {
+        printf("Error: List too short to delete 'before'.\n");
+        return;
+    }
+
+    if (START->data == targetVal) {
+        printf("Error: No node exists before the head (%d).\n", targetVal);
+        return;
+    }
+
+    struct Node *Previous2 = NULL, *Previous = NULL, *Current = START;
+    int found = 0;
+
+    while (Current != NULL) {
+        if (Current->data == targetVal) {
+            found = 1;
+            break;
+        }
+        Previous2 = Previous;
+        Previous = Current;
+        Current = Current->next;
+    }
+
+    if (found && Previous != NULL) {
+        if (Previous2 == NULL) START = Current; // Deleting the head
+        else Previous2->next = Current;
+        
+        free(Previous);
+        printf("Success: Node before %d deleted.\n", targetVal);
+    } else {
+        printf("Error: Value %d not found.\n", targetVal);
+    }
+}
+
+// Deletion After a Node 
+void deleteAfterNode(int targetVal) {
+    struct Node* Current = START;
+    while (Current != NULL && Current->data != targetVal) {
+        Current = Current->next;
+    }
+
+    if (Current != NULL) {
+        if (Current->next == NULL) {
+            printf("Error: No node exists after %d.\n", targetVal);
+        } else {
+            struct Node* DelNode = Current->next;
+            Current->next = DelNode->next;
+            free(DelNode);
+            printf("Success: Node after %d deleted.\n", targetVal);
+        }
+    } else {
+        printf("Error: Value %d not found.\n", targetVal);
+    }
+}
+
+int main() {
+    int choice, val, target;
+
+    insertEnd(10); insertEnd(20); insertEnd(30); insertEnd(40);
+
+    while (1) {
+        printf("\n1. Display 2. Delete Before 3. Delete After 4. Exit\n");
+        printf("Choice: ");
+        if (scanf("%d", &choice) != 1) break; // Robust input check
+
+        switch (choice) {
+            case 1: display(); break;
+            case 2:
+                printf("Enter target value: ");
+                scanf("%d", &target);
+                deleteBeforeNode(target);
+                break;
+            case 3:
+                printf("Enter target value: ");
+                scanf("%d", &target);
+                deleteAfterNode(target);
+                break;
+            case 4:
+                deleteList();
+                return 0;
+            default: printf("Invalid choice.\n");
+        }
+    }
+    return 0;
+}
