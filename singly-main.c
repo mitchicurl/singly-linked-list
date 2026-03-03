@@ -112,11 +112,50 @@ void insertAtEnd(struct Node** head, int data) {
 
 // PERSON 4: Adding New Node Before and After a Node (Target by VALUE)
 void insertBefore(struct Node** head, int target, int data) {
-    // Code dito...
+    if (*head == NULL) {
+        printf("\nError: The list is empty. Target %d not found.\n", target);
+        return;
+    }
+
+    if ((*head)->data == target) {
+        insertAtStart(head, data);
+        return;
+    }
+
+    struct Node* TravNode = *head;
+
+    while (TravNode->next != NULL && TravNode->next->data != target) {
+        TravNode = TravNode->next;
+    }
+
+    if (TravNode->next == NULL) {
+        printf("\nError: Target value %d not found in the list.\n", target);
+    } else {
+        struct Node* NewNode = createNode(data);
+        NewNode->next = TravNode->next;
+        TravNode->next = NewNode;
+    }
 }
 
 void insertAfter(struct Node* head, int target, int data) {
-    // Code dito...
+    if (head == NULL) {
+        printf("\nError: The list is empty. Target %d not found.\n", target);
+        return;
+    }
+
+    struct Node* TravNode = head;
+
+    while (TravNode != NULL && TravNode->data != target) {
+        TravNode = TravNode->next;
+    }
+
+    if (TravNode == NULL) {
+        printf("\nError: Target value %d not found in the list.\n", target);
+    } else {
+        struct Node* NewNode = createNode(data);
+        NewNode->next = TravNode->next;
+        TravNode->next = NewNode;
+    }
 }
 
 // PERSON 5: Deletion of Node at Start and by Value
